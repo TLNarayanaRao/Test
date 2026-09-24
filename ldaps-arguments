@@ -1,0 +1,11 @@
+| Argument | Example / meaning |
+| --- | --- |
+| ldapsUrl | `ldaps://ldap.example.com:636` |
+| bindPrincipal | `CN=svc-bwce,OU=Service Accounts,DC=example,DC=com`; AD may also accept a service-account UPN |
+| bindPassword | Inject from your deployment secret mechanism; do not put in source control or logs |
+| baseDn | `OU=Employees,DC=example,DC=com` (must cover every user you want to check) |
+| filterTemplate | AD: `(&(objectCategory=person)(objectClass=user)(sAMAccountName={0}))` |
+| username | `jdoe` |
+| connectTimeoutMs | `5000` |
+| readTimeoutMs | `5000` |
+| searchTimeoutMs | `5000` |
