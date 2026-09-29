@@ -1,4 +1,15 @@
-2026-09-28 20:58:38,434 ERROR Starter main failed; retrying in 1.0 seconds
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/tibco/esb/mina/agent/customer-data-delivery-plane/applications/fc72998d-7d48-437c-bc08-f83abb10ef94/application/core.py", line 82, in resolve
+    return {key: resolve(child, ctx) for key, child in value.items()}
+                 ^^^^^^^^^^^^^^^^^^^
+  File "/opt/tibco/esb/mina/agent/customer-data-delivery-plane/applications/fc72998d-7d48-437c-bc08-f83abb10ef94/application/core.py", line 73, in resolve
+    return lookup(value.path, ctx)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/tibco/esb/mina/agent/customer-data-delivery-plane/applications/fc72998d-7d48-437c-bc08-f83abb10ef94/application/core.py", line 64, in lookup
+    value = value[part]
+            ~~~~~^^^^^^
+KeyError: 'connections'
+2026-09-28 21:11:10,040 ERROR Starter main failed; retrying in 30.0 seconds
 Traceback (most recent call last):
   File "/opt/tibco/esb/mina/agent/customer-data-delivery-plane/applications/fc72998d-7d48-437c-bc08-f83abb10ef94/application/main.py", line 40, in receive_forever
     output = await execute_with_policy(kind, config, context, activity_id, name)
@@ -19,7 +30,7 @@ Traceback (most recent call last):
     value = value[part]
             ~~~~~^^^^^^
 KeyError: 'connections'
-2026-09-28 20:58:39,438 ERROR Starter main failed; retrying in 2.0 seconds
+2026-09-28 21:11:40,045 ERROR Starter main failed; retrying in 30.0 seconds
 Traceback (most recent call last):
   File "/opt/tibco/esb/mina/agent/customer-data-delivery-plane/applications/fc72998d-7d48-437c-bc08-f83abb10ef94/application/main.py", line 40, in receive_forever
     output = await execute_with_policy(kind, config, context, activity_id, name)
@@ -40,7 +51,7 @@ Traceback (most recent call last):
     value = value[part]
             ~~~~~^^^^^^
 KeyError: 'connections'
-2026-09-28 20:58:41,442 ERROR Starter main failed; retrying in 4.0 seconds
+2026-09-28 21:12:10,067 ERROR Starter main failed; retrying in 30.0 seconds
 Traceback (most recent call last):
   File "/opt/tibco/esb/mina/agent/customer-data-delivery-plane/applications/fc72998d-7d48-437c-bc08-f83abb10ef94/application/main.py", line 40, in receive_forever
     output = await execute_with_policy(kind, config, context, activity_id, name)
@@ -61,7 +72,7 @@ Traceback (most recent call last):
     value = value[part]
             ~~~~~^^^^^^
 KeyError: 'connections'
-2026-09-28 20:58:45,448 ERROR Starter main failed; retrying in 8.0 seconds
+2026-09-28 21:12:40,099 ERROR Starter main failed; retrying in 30.0 seconds
 Traceback (most recent call last):
   File "/opt/tibco/esb/mina/agent/customer-data-delivery-plane/applications/fc72998d-7d48-437c-bc08-f83abb10ef94/application/main.py", line 40, in receive_forever
     output = await execute_with_policy(kind, config, context, activity_id, name)
@@ -82,7 +93,7 @@ Traceback (most recent call last):
     value = value[part]
             ~~~~~^^^^^^
 KeyError: 'connections'
-2026-09-28 20:58:53,459 ERROR Starter main failed; retrying in 16.0 seconds
+2026-09-28 21:13:10,132 ERROR Starter main failed; retrying in 30.0 seconds
 Traceback (most recent call last):
   File "/opt/tibco/esb/mina/agent/customer-data-delivery-plane/applications/fc72998d-7d48-437c-bc08-f83abb10ef94/application/main.py", line 40, in receive_forever
     output = await execute_with_policy(kind, config, context, activity_id, name)
@@ -103,7 +114,7 @@ Traceback (most recent call last):
     value = value[part]
             ~~~~~^^^^^^
 KeyError: 'connections'
-2026-09-28 20:59:09,472 ERROR Starter main failed; retrying in 30.0 seconds
+2026-09-28 21:13:40,150 ERROR Starter main failed; retrying in 30.0 seconds
 Traceback (most recent call last):
   File "/opt/tibco/esb/mina/agent/customer-data-delivery-plane/applications/fc72998d-7d48-437c-bc08-f83abb10ef94/application/main.py", line 40, in receive_forever
     output = await execute_with_policy(kind, config, context, activity_id, name)
@@ -124,3 +135,65 @@ Traceback (most recent call last):
     value = value[part]
             ~~~~~^^^^^^
 KeyError: 'connections'
+2026-09-28 21:14:10,160 ERROR Starter main failed; retrying in 30.0 seconds
+Traceback (most recent call last):
+  File "/opt/tibco/esb/mina/agent/customer-data-delivery-plane/applications/fc72998d-7d48-437c-bc08-f83abb10ef94/application/main.py", line 40, in receive_forever
+    output = await execute_with_policy(kind, config, context, activity_id, name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/tibco/esb/mina/agent/customer-data-delivery-plane/applications/fc72998d-7d48-437c-bc08-f83abb10ef94/application/core.py", line 111, in execute_with_policy
+    result = await execute(kind, raw, ctx, activity_id, name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/tibco/esb/mina/agent/customer-data-delivery-plane/applications/fc72998d-7d48-437c-bc08-f83abb10ef94/application/core.py", line 192, in execute
+    connection = resolve(resource.config, ctx)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/tibco/esb/mina/agent/customer-data-delivery-plane/applications/fc72998d-7d48-437c-bc08-f83abb10ef94/application/core.py", line 82, in resolve
+    return {key: resolve(child, ctx) for key, child in value.items()}
+                 ^^^^^^^^^^^^^^^^^^^
+  File "/opt/tibco/esb/mina/agent/customer-data-delivery-plane/applications/fc72998d-7d48-437c-bc08-f83abb10ef94/application/core.py", line 73, in resolve
+    return lookup(value.path, ctx)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/tibco/esb/mina/agent/customer-data-delivery-plane/applications/fc72998d-7d48-437c-bc08-f83abb10ef94/application/core.py", line 64, in lookup
+    value = value[part]
+            ~~~~~^^^^^^
+KeyError: 'connections'
+2026-09-28 21:14:40,179 ERROR Starter main failed; retrying in 30.0 seconds
+Traceback (most recent call last):
+  File "/opt/tibco/esb/mina/agent/customer-data-delivery-plane/applications/fc72998d-7d48-437c-bc08-f83abb10ef94/application/main.py", line 40, in receive_forever
+    output = await execute_with_policy(kind, config, context, activity_id, name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/tibco/esb/mina/agent/customer-data-delivery-plane/applications/fc72998d-7d48-437c-bc08-f83abb10ef94/application/core.py", line 111, in execute_with_policy
+    result = await execute(kind, raw, ctx, activity_id, name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/tibco/esb/mina/agent/customer-data-delivery-plane/applications/fc72998d-7d48-437c-bc08-f83abb10ef94/application/core.py", line 192, in execute
+    connection = resolve(resource.config, ctx)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/tibco/esb/mina/agent/customer-data-delivery-plane/applications/fc72998d-7d48-437c-bc08-f83abb10ef94/application/core.py", line 82, in resolve
+    return {key: resolve(child, ctx) for key, child in value.items()}
+                 ^^^^^^^^^^^^^^^^^^^
+  File "/opt/tibco/esb/mina/agent/customer-data-delivery-plane/applications/fc72998d-7d48-437c-bc08-f83abb10ef94/application/core.py", line 73, in resolve
+    return lookup(value.path, ctx)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/tibco/esb/mina/agent/customer-data-delivery-plane/applications/fc72998d-7d48-437c-bc08-f83abb10ef94/application/core.py", line 64, in lookup
+    value = value[part]
+            ~~~~~^^^^^^
+KeyError: 'connections'
+2026-09-28 21:15:10,210 ERROR Starter main failed; retrying in 30.0 seconds
+Traceback (most recent call last):
+  File "/opt/tibco/esb/mina/agent/customer-data-delivery-plane/applications/fc72998d-7d48-437c-bc08-f83abb10ef94/application/main.py", line 40, in receive_forever
+    output = await execute_with_policy(kind, config, context, activity_id, name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/tibco/esb/mina/agent/customer-data-delivery-plane/applications/fc72998d-7d48-437c-bc08-f83abb10ef94/application/core.py", line 111, in execute_with_policy
+    result = await execute(kind, raw, ctx, activity_id, name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/tibco/esb/mina/agent/customer-data-delivery-plane/applications/fc72998d-7d48-437c-bc08-f83abb10ef94/application/core.py", line 192, in execute
+    connection = resolve(resource.config, ctx)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/tibco/esb/mina/agent/customer-data-delivery-plane/applications/fc72998d-7d48-437c-bc08-f83abb10ef94/application/core.py", line 82, in resolve
+    return {key: resolve(child, ctx) for key, child in value.items()}
+                 ^^^^^^^^^^^^^^^^^^^
+  File "/opt/tibco/esb/mina/agent/customer-data-delivery-plane/applications/fc72998d-7d48-437c-bc08-f83abb10ef94/application/core.py", line 73, in resolve
+    return lookup(value.path, ctx)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/tibco/esb/mina/agent/customer-data-delivery-plane/applications/fc72998d-7d48-437c-bc08-f83abb10ef94/application/core.py", line 64, in lookup
+    value = value[part]
+            ~~~~~^^^^^^
