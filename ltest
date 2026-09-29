@@ -1,0 +1,158 @@
+package com.hca;
+
+import java.net.URI;
+import java.util.Hashtable;
+
+import javax.naming.Context;
+import javax.naming.NamingEnumeration;
+import javax.naming.NamingException;
+import javax.naming.directory.DirContext;
+import javax.naming.directory.InitialDirContext;
+import javax.naming.directory.SearchControls;
+import javax.naming.directory.SearchResult;
+
+public class LdapTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String url = "ldaps://sldp.hmfad.com:636";
+		String  Principal = "CN=svc_allventst,OU=Service Accounts,DC=hmfad, DC=com";
+		String  Pass = "Eotallven2012!";
+		String basedn = "DC=hmfad, DC=com";
+		String filter = "(&(cn={0})(objectclass=user))";
+		String user = "Ramani.Tangirala@hcs.com"; 
+		LdapTest lt = new LdapTest();
+		 
+		 try {
+			 System.out.println("before calling method");
+			 System.out.println(lt.userExists(url, Principal, Pass, basedn, filter, user, 0, 0, 0));
+		
+		 } catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+	public  boolean userExists(String ldapsUrl, String bindPrincipal,
+            String bindPassword, String baseDn, String filterTemplate,
+            String username, int connectTimeoutMs, int readTimeoutMs,
+            int searchTimeoutMs) throws NamingException {
+        requireText(ldapsUrl, "ldapsUrl");
+        URI uri = URI.create(ldapsUrl);
+        System.out.println(uri);
+        if (!"ldaps".equalsIgnoreCase(uri.getScheme()) || uri.getHost() == null
+                || uri.getUserInfo() != null || uri.getQuery() != null
+                || uri.getFragment() != null
+                || (uri.getRawPath() != null && !uri.getRawPath().isEmpty()
+                    && !"/".equals(uri.getRawPath()))
+                || uri.getPort() == 0 || uri.getPort() > 65535) {
+            throw new IllegalArgumentException("Use ldaps://hostname:636 without credentials, base DN or query");
+        }
+        requireText(bindPrincipal, "bindPrincipal");
+        // An empty password can cause an unauthenticated bind on some directories.
+        if (bindPassword == null || bindPassword.isEmpty()) {
+            throw new IllegalArgumentException("bindPassword must not be empty");
+        }
+        requireText(baseDn, "baseDn");
+        requireText(filterTemplate, "filterTemplate");
+        if (!filterTemplate.contains("{0}")) {
+            throw new IllegalArgumentException("filterTemplate must contain {0}");
+        }
+        requireText(username, "username");
+        if (connectTimeoutMs < 0 || readTimeoutMs < 0 || searchTimeoutMs < 0) {
+            throw new IllegalArgumentException("All timeouts must be positive milliseconds");
+        }
+
+        Hashtable<String, Object> env = new Hashtable<String, Object>();
+        env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+        env.put(Context.PROVIDER_URL, ldapsUrl);
+        env.put(Context.SECURITY_AUTHENTICATION, "simple");
+        env.put(Context.SECURITY_PRINCIPAL, bindPrincipal);
+        env.put(Context.SECURITY_CREDENTIALS, bindPassword);
+        // Do not forward service credentials to referral destinations.
+        env.put(Context.REFERRAL, "follow");
+        env.put("com.sun.jndi.ldap.connect.timeout", Integer.toString(connectTimeoutMs));
+        env.put("com.sun.jndi.ldap.read.timeout", Integer.toString(readTimeoutMs));
+        env.put("java.naming.ldap.derefAliases", "never");
+        System.out.println("env set");
+        SearchControls controls = new SearchControls();
+        controls.setSearchScope(SearchControls.SUBTREE_SCOPE);
+        controls.setTimeLimit(searchTimeoutMs);
+        controls.setCountLimit(1);
+        controls.setReturningAttributes(new String[0]);
+        controls.setReturningObjFlag(false);
+        System.out.println("controls set");
+        DirContext context = null;
+        NamingEnumeration<SearchResult> results = null;
+        System.out.println("initialization set");
+        
+        String stage = "CONNECT_TLS_BIND";
+        String lookupId = java.util.UUID.randomUUID().toString();
+        long started = System.nanoTime();
+
+        try {
+            System.out.println("LDAP [" + lookupId + "] CONNECT_TLS_BIND START");
+
+            context = new InitialDirContext(env);
+
+            System.out.println("LDAP [" + lookupId + "] BIND SUCCESS");
+
+            stage = "SEARCH";
+            System.out.println("LDAP [" + lookupId + "] SEARCH START");
+
+            results = context.search(
+                baseDn,
+                filterTemplate,
+                new Object[] { username },
+                controls
+            );
+
+            stage = "READ_SEARCH_RESULTS";
+            System.out.println("LDAP [" + lookupId + "] READ_SEARCH_RESULTS START");
+
+            boolean exists = results.hasMore();
+
+            System.out.println("LDAP [" + lookupId
+                + "] SEARCH COMPLETE exists=" + exists);
+
+            return exists;
+
+        } catch (NamingException e) {
+            long elapsedMs = (System.nanoTime() - started) / 1_000_000;
+
+            System.err.println("LDAP [" + lookupId
+                + "] FAILED stage=" + stage
+                + " totalElapsedMs=" + elapsedMs
+                + " exception=" + e.getClass().getSimpleName());
+
+            throw e; // Preserve the original exception for BWCE's error path.
+        }
+        
+        
+//        try {
+//            context = new InitialDirContext(env);
+//            System.out.println("context set");
+//            // JNDI escapes special filter characters in the username argument.
+//            results = context.search(baseDn, filterTemplate, new Object[] {username}, controls);
+//            System.out.println(results);
+//            return results.hasMore();
+//        } finally {
+//            // Cleanup must not replace the original bind/search failure.
+//            if (results != null) {
+//                try { results.close(); } catch (NamingException ignored) { }
+//            }
+//            if (context != null) {
+//                try { context.close(); } catch (NamingException ignored) { }
+//            }
+//            env.clear();
+//        }
+    }
+	
+	private  void requireText(String value, String name) {
+        if (value == null || value.trim().isEmpty()) {
+            throw new IllegalArgumentException(name + " must not be blank");
+        }
+    }
+
+}
