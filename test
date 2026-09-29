@@ -1,3 +1,4 @@
 -Djavax.net.ssl.trustStore=/etc/bwce/certs/ldap-truststore.jks
 -Djavax.net.ssl.trustStoreType=JKS
 -Djavax.net.ssl.trustStorePassword=<your-jks-password>
+-Dcom.tibco.security.NoExplicitCAChain=true
