@@ -2,3 +2,47 @@
 -Djavax.net.ssl.trustStoreType=JKS
 -Djavax.net.ssl.trustStorePassword=<your-jks-password>
 -Dcom.tibco.security.NoExplicitCAChain=true
+
+
+
+String stage = "CONNECT_TLS_BIND";
+String lookupId = java.util.UUID.randomUUID().toString();
+long started = System.nanoTime();
+
+try {
+    System.out.println("LDAP [" + lookupId + "] CONNECT_TLS_BIND START");
+
+    context = new InitialDirContext(env);
+
+    System.out.println("LDAP [" + lookupId + "] BIND SUCCESS");
+
+    stage = "SEARCH";
+    System.out.println("LDAP [" + lookupId + "] SEARCH START");
+
+    results = context.search(
+        baseDn,
+        filterTemplate,
+        new Object[] { username },
+        controls
+    );
+
+    stage = "READ_SEARCH_RESULTS";
+    System.out.println("LDAP [" + lookupId + "] READ_SEARCH_RESULTS START");
+
+    boolean exists = results.hasMore();
+
+    System.out.println("LDAP [" + lookupId
+        + "] SEARCH COMPLETE exists=" + exists);
+
+    return exists;
+
+} catch (NamingException e) {
+    long elapsedMs = (System.nanoTime() - started) / 1_000_000;
+
+    System.err.println("LDAP [" + lookupId
+        + "] FAILED stage=" + stage
+        + " totalElapsedMs=" + elapsedMs
+        + " exception=" + e.getClass().getSimpleName());
+
+    throw e; // Preserve the original exception for BWCE's error path.
+}
